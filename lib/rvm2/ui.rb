@@ -11,7 +11,7 @@ module Rvm2
         raise "No block given" unless block_given?
         run_hook(:on_start,  name)
         block.call
-        run_hook(:on_finish, name)
+        run_hook(:on_finish)
       end
 
       # ui.log 'message'
