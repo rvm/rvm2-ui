@@ -48,41 +48,35 @@ module Rvm2
         end
 
         def start(name)
-          print_leveled(@stdout, group_message(name), new_line: false)
+          @stdout.write(group_message(name, " "))
           @stdout.was_new_line = false
           @names.push(name)
         end
 
         def finish(status)
           name = @names.pop
-          print_leveled(@stdout, group_message(name, status ? "v" : "x"), reset: true)
+          @stdout.puts("\r#{group_message(name, status ? "v" : "x")}")
         end
 
         def log(message, type = :log)
           case type
           when :log
-            print_leveled(@stdout, message)
+            @stdout.puts(message)
           when :warn
-            print_leveled(@stdout, "Warning: #{message}")
+            @stdout.puts("Warning: #{message}")
           when :warn_important
-            print_leveled(@stdout, "WARNING! #{message}")
+            @stdout.puts("WARNING! #{message}")
           when :error
-            print_leveled(@stderr, "Error: #{message}")
+            @stderr.puts("Error: #{message}")
           else
-            print_leveled(@stdout, "#{type.to_s.capitalize}: #{message}")
+            @stdout.puts("#{type.to_s.capitalize}: #{message}")
           end
         end
 
       private
 
-        def group_message(name, result = " ")
+        def group_message(name, result)
           "[#{result}] #{name}"
-        end
-
-        def print_leveled(output, message, new_line: true, reset: false)
-          message.prepend("\r") if reset
-          message.concat ("\n") if new_line
-          output.write(message)
         end
 
       end
