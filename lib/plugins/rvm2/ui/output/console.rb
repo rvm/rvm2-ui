@@ -34,9 +34,8 @@ module Rvm2
           output.print(reset ? "\r" : "\n") unless @was_new_line
           output.print("  "*@names.size) if @names.size > 0
           output.print(message)
-          new_line ||= message.include?("\n")
           output.print("\n") if new_line
-          @was_new_line = new_line
+          @was_new_line = new_line || message.include?("\n")
         end
 
       end
