@@ -1,17 +1,17 @@
-require 'hooks'
-require 'hooks/instance_hooks'
-
 module Rvm2
   module Ui
     class Router
-      define_hooks :on_start, :on_finish, :on_log
 
-      # ui.command "bla" { do_something; }
+      def initialize(type)
+        @handler = ...
+      end
+
+      # ui.command "message" { do_something; }
       def command(name, &block)
         raise "No block given" unless block_given?
-        run_hook(:on_start,  name)
+        @handler.start(name)
         status = block.call
-        run_hook(:on_finish, status)
+        @handler.finish(status)
         status
       end
 
@@ -20,7 +20,15 @@ module Rvm2
       # standard types => :log, :warn, :important, :error
       # in case unsupported type is used :log will be used
       def log(message, type = :log)
-        run_hook(:on_log, message, type)
+        @handler.log(message, type)
+      end
+
+      def stdout
+        @handler.stdout
+      end
+
+      def stderr
+        @handler.stderr
       end
 
     end
