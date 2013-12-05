@@ -47,8 +47,27 @@ Test me 2
   [ ] Group 2\r  [x] Group 2
   [ ] Group 3
     Test me 2
-  [v] Group 3
-[v] Group 1
+\r  [v] Group 3
+\r[v] Group 1
     EXPECTED
   end
+
+  it "adds stdout writes" do
+    subject.stdout.puts("Example 1")
+    @stdout.string.must_equal(<<-EXPECTED)
+Example 1
+    EXPECTED
+  end
+
+  it "adds groups stdout writes" do
+    subject.start("Group 1")
+    subject.stdout.puts("Example 1")
+    subject.finish(true)
+    @stdout.string.must_equal(<<-EXPECTED)
+[ ] Group 1
+  Example 1
+\r[v] Group 1
+    EXPECTED
+  end
+
 end
