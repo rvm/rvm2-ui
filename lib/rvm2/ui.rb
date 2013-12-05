@@ -10,8 +10,9 @@ module Rvm2
       def command(name, &block)
         raise "No block given" unless block_given?
         run_hook(:on_start,  name)
-        block.call
-        run_hook(:on_finish)
+        status = block.call
+        run_hook(:on_finish, status)
+        status
       end
 
       # ui.log 'message'

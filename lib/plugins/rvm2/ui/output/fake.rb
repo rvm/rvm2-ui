@@ -25,7 +25,8 @@ module Rvm2
           @current =  created
         end
 
-        def finish
+        def finish(status)
+          @current.status = status
           @current = @current.parent
         end
 

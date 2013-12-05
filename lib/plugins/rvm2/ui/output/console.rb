@@ -4,7 +4,7 @@ module Rvm2
       class Console
         def start(name)
         end
-        def finish
+        def finish(status)
         end
         def log(message, type = :log)
         end
