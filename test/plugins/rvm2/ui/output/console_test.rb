@@ -63,10 +63,15 @@ Example 1
     subject.start("Group 1")
     subject.stdout.puts("Example 1")
     subject.finish(true)
+    @stderr.string.must_equal("")
+    subject.stderr.puts("Example 2")
     @stdout.string.must_equal(<<-EXPECTED)
 [ ] Group 1
   Example 1
 \r[v] Group 1
+    EXPECTED
+    @stderr.string.must_equal(<<-EXPECTED)
+Example 2
     EXPECTED
   end
 
