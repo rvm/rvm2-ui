@@ -9,7 +9,7 @@ module Rvm2
             @message = message
             @type    = type
             @parent  = parent
-            @list    = [] unless parent.nil?
+            @list    = [] if type == :group
           end
         end
 
@@ -30,7 +30,7 @@ module Rvm2
         end
 
         def log(message, type = :log)
-          @current << Element.new(message, type)
+          @current.list << Element.new(message, type)
         end
 
       end
