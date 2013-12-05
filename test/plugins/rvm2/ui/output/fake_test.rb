@@ -25,4 +25,21 @@ describe Rvm2::Ui::Output::Fake do
     subject.root.list.map(&:message).must_equal(["Group 1", "Group 2"])
     subject.root.list.map(&:status).must_equal([true, false])
   end
+
+  it "nests groups and messages" do
+    subject.root.list.must_equal([])
+    subject.start("Group 1")
+    subject.log("Test me 1")
+    subject.start("Group 2")
+    subject.finish(false)
+    subject.finish(true)
+    subject.root.list.size.must_equal(1)
+    subject.root.list[0].message.must_equal("Group 1")
+    subject.root.list[0].status.must_equal(true)
+    subject.root.list[0].list.size.must_equal(2)
+    subject.root.list[0].list[0].message.must_equal("Test me 1")
+    subject.root.list[0].list[1].message.must_equal("Group 2")
+    subject.root.list[0].list[1].status.must_equal(false)
+  end
+
 end
