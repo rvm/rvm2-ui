@@ -31,12 +31,11 @@ module Rvm2
           "[ ] #{name}"
         end
 
-        def print_leveled(where, message, new_line: true, reset: false)
-          message = message[1..-1]
-          where.print("\r") if reset && !@was_new_line
-          where.print("  "*@names.size*2) if @names.size > 0
-          where.print(message)
-          where.print("\n") if new_line
+        def print_leveled(output, message, new_line: true, reset: false)
+          output.print("\r") if reset && !@was_new_line
+          output.print("  "*@names.size*2) if @names.size > 0
+          output.print(message)
+          output.print("\n") if new_line
           @was_new_line ||= new_line
         end
 
