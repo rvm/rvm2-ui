@@ -7,18 +7,17 @@ module Rvm2
           @stdout = stdout
           @stderr = stderr
           @names  = []
-          @was_new_line = false
+          @was_new_line = true
         end
 
         def start(name)
-          @was_new_line = false
           print_leveled(@stdout, group_message(name), new_line: false)
           @names.push(name)
         end
 
         def finish(status)
           name = @names.pop
-          print_leveled(@stdout, group_message(name), reset: true)
+          print_leveled(@stdout, group_message(name, status ? "v" : "x"), reset: true)
         end
 
         def log(message, type = :log)
@@ -27,16 +26,17 @@ module Rvm2
 
       private
 
-        def group_message(name)
-          "[ ] #{name}"
+        def group_message(name, result = " ")
+          "[#{result}] #{name}"
         end
 
         def print_leveled(output, message, new_line: true, reset: false)
-          output.print("\r") if reset && !@was_new_line
-          output.print("  "*@names.size*2) if @names.size > 0
+          output.print(reset ? "\r" : "\n") unless @was_new_line
+          output.print("  "*@names.size) if @names.size > 0
           output.print(message)
+          new_line ||= message.include?("\n")
           output.print("\n") if new_line
-          @was_new_line ||= new_line
+          @was_new_line = new_line
         end
 
       end
