@@ -59,7 +59,18 @@ module Rvm2
         end
 
         def log(message, type = :log)
-          print_leveled(@stdout, message)
+          case type
+          when :log
+            print_leveled(@stdout, message)
+          when :warn
+            print_leveled(@stdout, "Warning: #{message}")
+          when :warn_important
+            print_leveled(@stdout, "WARNING! #{message}")
+          when :error
+            print_leveled(@stderr, "Error: #{message}")
+          else
+            print_leveled(@stdout, "#{type.to_s.capitalize}: #{message}")
+          end
         end
 
       private

@@ -15,9 +15,42 @@ describe Rvm2::Ui::Output::Console do
   it "adds messages" do
     subject.log("Test me 1")
     subject.log("Test me 2")
+    @stderr.string.must_equal("")
     @stdout.string.must_equal(<<-EXPECTED)
 Test me 1
 Test me 2
+    EXPECTED
+  end
+
+  it "adds warnings" do
+    subject.log("Test me 1", :warn)
+    @stderr.string.must_equal("")
+    @stdout.string.must_equal(<<-EXPECTED)
+Warning: Test me 1
+    EXPECTED
+  end
+
+  it "adds important warnings" do
+    subject.log("Test me 1", :warn_important)
+    @stderr.string.must_equal("")
+    @stdout.string.must_equal(<<-EXPECTED)
+WARNING! Test me 1
+    EXPECTED
+  end
+
+  it "adds errors" do
+    subject.log("Test me 1", :error)
+    @stdout.string.must_equal("")
+    @stderr.string.must_equal(<<-EXPECTED)
+Error: Test me 1
+    EXPECTED
+  end
+
+  it "adds custom messages" do
+    subject.log("Test me 1", :custom)
+    @stderr.string.must_equal("")
+    @stdout.string.must_equal(<<-EXPECTED)
+Custom: Test me 1
     EXPECTED
   end
 
@@ -59,17 +92,19 @@ Example 1
     EXPECTED
   end
 
-  it "adds groups stdout writes" do
+  it "adds grouped stdout writes" do
     subject.start("Group 1")
     subject.stdout.puts("Example 1")
     subject.finish(true)
-    @stderr.string.must_equal("")
-    subject.stderr.puts("Example 2")
     @stdout.string.must_equal(<<-EXPECTED)
 [ ] Group 1
   Example 1
 \r[v] Group 1
     EXPECTED
+  end
+
+  it "adds stderr writes" do
+    subject.stderr.puts("Example 2")
     @stderr.string.must_equal(<<-EXPECTED)
 Example 2
     EXPECTED
