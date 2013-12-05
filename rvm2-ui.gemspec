@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # -*- encoding: utf-8 -*-
 
-require File.expand_path("../lib/rvm2-ui/version.rb", __FILE__)
+require File.expand_path("../lib/rvm2/ui/version.rb", __FILE__)
 
 Gem::Specification.new do |s|
   s.name = "rvm2-ui"
