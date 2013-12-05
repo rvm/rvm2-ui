@@ -5,6 +5,7 @@ module Rvm2
 
         class Element
           attr_reader :list, :message, :type, :parent
+          attr_accessor :status
           def initialize(message, type = :log, parent = nil)
             @message = message
             @type    = type
