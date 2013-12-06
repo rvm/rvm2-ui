@@ -9,3 +9,4 @@ notifications:
     recipients:
       - mpapis@gmail.com
     on_failure: change
+cache: bundler
