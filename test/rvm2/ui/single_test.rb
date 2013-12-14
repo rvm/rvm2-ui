@@ -17,4 +17,18 @@ describe Rvm2::Ui::Single do
     @obj.handler.root.list.map(&:message).must_equal(["test true", "test false"])
   end
 
+  it "handles log" do
+    @obj = subject.new(:fake)
+    @obj.log("test log")
+    @obj.handler.root.list.map(&:message).must_equal(["test log"])
+  end
+
+  it "supports outputs" do
+    @obj = subject.new(:fake)
+    @obj.stdout.write("test stdout")
+    @obj.stderr.write("test stderr")
+    @obj.handler.root.list.map(&:message).must_equal(["test stdout", "test stderr"])
+    @obj.handler.root.list.map(&:type   ).must_equal([:stdout, :stderr])
+  end
+
 end
