@@ -110,4 +110,4 @@ Example - temporarily use logger:
       @ui.log("text")
     end
 
-In bot examples the output will be written to both standard output and log file.
+In both examples the output will be written to both standard output and log file.
