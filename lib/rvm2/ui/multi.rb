@@ -13,6 +13,16 @@ module Rvm2
         @handlers << @rvm2_plugins.first_class!('ui/output', handler).new(*args)
       end
 
+      def remove
+        @handlers.pop
+      end
+
+      def with(handler, *args, &block)
+        add(handler, *args)
+        block.call
+        remove
+      end
+
       # ui.command "message" { do_something; }
       def command(name, &block)
         raise "No block given" unless block_given?

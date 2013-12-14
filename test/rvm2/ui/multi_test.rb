@@ -14,6 +14,11 @@ describe Rvm2::Ui::Multi do
     ui
   end
 
+  it "removes handlers" do
+    subject.remove
+    subject.handlers.map{|h| h.class.name }.must_equal(["Rvm2::Ui::Output::Console"])
+  end
+
   it "supports multiple outputs" do
     subject.handlers.map{|h| h.class.name }.must_equal(["Rvm2::Ui::Output::Console", "Rvm2::Ui::Output::Fake"])
   end
@@ -43,6 +48,15 @@ EXPECTED
     @stderr.string.must_equal("test stderr")
     subject.handlers[1].root.list.map(&:message).must_equal(["test stdout", "test stderr"])
     subject.handlers[1].root.list.map(&:type).must_equal([:stdout, :stderr])
+  end
+
+  it "handles temporary adding of a log" do
+    subject.handlers.count.must_equal(2)
+    subject.with(:fake) do
+      subject.handlers.count.must_equal(3)
+      subject.handlers[2].class.name.must_equal("Rvm2::Ui::Output::Fake")
+    end
+    subject.handlers.count.must_equal(2)
   end
 
 end
