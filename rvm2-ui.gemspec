@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.required_ruby_version = ">= 2.0.0"
+  s.add_dependency('pluginator')
   %w{rake minitest simplecov coveralls redcarpet}.each do |name|
     s.add_development_dependency(name)
   end
