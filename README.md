@@ -98,5 +98,16 @@ Example use:
 
     @ui = Rvm2::UI.multi
     @ui.add(:console)
-    @ui.add(:log, "my_app.log") # this is not implemented (yet)
+    @ui.add(:log, "my_app.log")
     @ui.log("text")
+    @ui.remove # removes the last added logger
+
+Example - temporarily use logger:
+
+    @ui = Rvm2::UI.multi
+    @ui.add(:console)
+    @ui.with(:log, "my_app.log") do
+      @ui.log("text")
+    end
+
+In bot examples the output will be written to both standard output and log file.
