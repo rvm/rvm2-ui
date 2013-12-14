@@ -6,9 +6,9 @@ module Rvm2
 
       attr_reader :handler
 
-      def initialize(type = :console, rvm2_plugins = nil, *args)
+      def initialize(handler = :console, rvm2_plugins = nil, *args)
         @rvm2_plugins = rvm2_plugins || Pluginator.find("rvm2", extends: %i{first_class})
-        @handler = @rvm2_plugins.first_class!('ui/output', type).new(*args)
+        @handler = @rvm2_plugins.first_class!('ui/output', handler).new(*args)
       end
 
       # ui.command "message" { do_something; }
