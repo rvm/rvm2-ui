@@ -87,3 +87,16 @@ would produce with `:console`:
     [ ] test
       debugging output
     [v] test
+
+## Combining multiple outputs
+
+In some cases it might be useful to send the same output to different targets like UI and log:
+
+    Rvm2::UI.multi(rvm2_plugins)
+
+Example use:
+
+    @ui = Rvm2::UI.multi
+    @ui.add(:console)
+    @ui.add(:log, "my_app.log") # this is not implemented (yet)
+    @ui.log("text")
