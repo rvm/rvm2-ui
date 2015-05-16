@@ -83,6 +83,10 @@ module Rvm2
           end
         end
 
+        def progress(type, *args)
+          @rvm2_plugins.first_class!("ui/progress/console", type).new(@rvm2_plugins, self, *args)
+        end
+
       private
 
         def group_message(name, result)

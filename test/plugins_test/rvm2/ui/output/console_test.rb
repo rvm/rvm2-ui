@@ -140,4 +140,11 @@ Example 2
     end
   end
 
+  it "does progress" do
+    progress = subject.progress(:open_text, "Downloading file", 0)
+    progress.change("1")
+    progress.finish("Done")
+    @stdout.string.must_equal("\rDownloading file: 0\rDownloading file: 1\rDownloading file: Done\n")
+  end
+
 end
