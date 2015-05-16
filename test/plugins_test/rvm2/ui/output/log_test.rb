@@ -12,7 +12,7 @@ describe Rvm2::Ui::Output::Log do
   end
   subject do
     Rvm2::Ui::Output::Log.new(
-      Pluginator.find("rvm2", extends: %i{first_class}),
+      Pluginator.find("rvm2", extends: [:first_class]),
       @tempfile.path
     )
   end

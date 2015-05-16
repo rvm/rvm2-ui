@@ -5,7 +5,7 @@ module Rvm2
       attr_reader :handlers
 
       def initialize(rvm2_plugins = nil)
-        @rvm2_plugins = rvm2_plugins || Pluginator.find("rvm2", extends: %i{first_class})
+        @rvm2_plugins = rvm2_plugins || Pluginator.find("rvm2", extends: [:first_class])
         @handlers = []
       end
 

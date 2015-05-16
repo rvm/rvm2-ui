@@ -14,7 +14,7 @@ describe Rvm2::Ui::Output::Console do
 
   subject do
     Rvm2::Ui::Output::Console.new(
-      Pluginator.find("rvm2", extends: %i{first_class}),
+      Pluginator.find("rvm2", extends: [:first_class]),
       @stdout,
       @stderr
     )

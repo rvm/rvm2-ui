@@ -7,7 +7,7 @@ describe Rvm2::Ui::Progress::Console::OpenText do
   before do
     @stdout     = StringIO.new
     @stderr     = StringIO.new
-    @pluginator = Pluginator.find("rvm2", extends: %i{first_class})
+    @pluginator = Pluginator.find("rvm2", extends: [:first_class])
     @console    = Rvm2::Ui::Output::Console.new(@pluginator, @stdout, @stderr)
   end
 
