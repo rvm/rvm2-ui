@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.required_ruby_version = ">= 2.0.0"
   s.add_dependency('pluginator')
-  %w{rake minitest simplecov coveralls redcarpet guard guard-minitest}.each do |name|
+  %w{rake minitest simplecov coveralls guard guard-minitest}.each do |name|
     s.add_development_dependency(name)
   end
   # s.add_development_dependency("smf-gem")
