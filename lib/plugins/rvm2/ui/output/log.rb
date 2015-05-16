@@ -1,3 +1,5 @@
+require_relative "console"
+
 module Rvm2
   module Ui
     module Output
