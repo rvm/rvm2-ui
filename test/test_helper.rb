@@ -15,3 +15,8 @@ Coveralls.noisy = true unless ENV['CI']
 
 require 'minitest/autorun'
 require 'minitest/unit'
+
+Dir["lib/**/*.rb"].each{|file|
+  file = file.split(/lib\//).last
+  require file
+}
