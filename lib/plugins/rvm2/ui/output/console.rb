@@ -1,3 +1,5 @@
+require 'io/console'
+
 module Rvm2
   module Ui
     module Output
@@ -30,6 +32,13 @@ module Rvm2
 
           def levels
             @console_parent.levels
+          end
+
+          def winsize
+            rows, columns = super
+            [rows, columns - levels*2]
+          rescue
+            [0,0]
           end
         end
 

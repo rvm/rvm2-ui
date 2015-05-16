@@ -2,6 +2,10 @@ require 'test_helper'
 require 'plugins/rvm2/ui/output/console'
 require 'stringio'
 
+module AddWinSize
+  attr_accessor :winsize
+end
+
 describe Rvm2::Ui::Output::Console do
   before do
     @stdout = StringIO.new
@@ -108,6 +112,28 @@ Example 1
     @stderr.string.must_equal(<<-EXPECTED)
 Example 2
     EXPECTED
+  end
+
+  it "has no winsize when it's not available in the subject" do
+    subject.stdout.winsize.must_equal([0,0])
+  end
+
+  describe "ConsoleIO.winsize" do
+    before do
+      @stdout.extend(AddWinSize)
+      @stdout.winsize = [100, 100]
+    end
+
+    it "has winsize when it's available" do
+      subject.stdout.winsize.must_equal([100,100])
+    end
+
+    it "winsize is decreased on every level" do
+      subject.start("one")
+      subject.stdout.winsize.must_equal([100,98])
+      subject.start("two")
+      subject.stdout.winsize.must_equal([100,96])
+    end
   end
 
 end
