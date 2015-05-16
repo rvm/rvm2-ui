@@ -3,7 +3,7 @@ require 'plugins/rvm2/ui/output/fake'
 
 describe Rvm2::Ui::Output::Fake do
   subject do
-    Rvm2::Ui::Output::Fake.new
+    Rvm2::Ui::Output::Fake.new(Pluginator.find("rvm2", extends: %i{first_class}))
   end
 
   it "adds messages" do

@@ -13,7 +13,11 @@ describe Rvm2::Ui::Output::Console do
   end
 
   subject do
-    Rvm2::Ui::Output::Console.new(@stdout, @stderr)
+    Rvm2::Ui::Output::Console.new(
+      Pluginator.find("rvm2", extends: %i{first_class}),
+      @stdout,
+      @stderr
+    )
   end
 
   it "adds messages" do
@@ -115,7 +119,7 @@ Example 2
   end
 
   it "has no winsize when it's not available in the subject" do
-    subject.stdout.winsize.must_equal([0,0])
+    subject.stdout.winsize.must_equal(nil)
   end
 
   describe "ConsoleIO.winsize" do

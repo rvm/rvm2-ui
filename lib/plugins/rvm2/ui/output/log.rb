@@ -5,7 +5,8 @@ module Rvm2
     module Output
       class Log < Console
         attr_reader :file_name
-        def initialize(file_name, flags = "w")
+        def initialize(rvm2_plugins, file_name, flags = "w")
+          @rvm2_plugins = rvm2_plugins
           @file_name = file_name
           @file = File.new(@file_name, flags)
           super(@file, @file)

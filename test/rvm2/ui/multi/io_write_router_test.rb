@@ -5,7 +5,8 @@ require 'plugins/rvm2/ui/output/fake'
 class HandlersParent
   attr_reader :handlers
   def initialize
-    @handlers = [Rvm2::Ui::Output::Fake.new, Rvm2::Ui::Output::Fake.new]
+    pluginator = Pluginator.find("rvm2", extends: %i{first_class})
+    @handlers = [Rvm2::Ui::Output::Fake.new(pluginator), Rvm2::Ui::Output::Fake.new(pluginator)]
   end
 end
 

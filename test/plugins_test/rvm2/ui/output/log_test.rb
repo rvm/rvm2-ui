@@ -11,7 +11,10 @@ describe Rvm2::Ui::Output::Log do
     @tempfile.unlink
   end
   subject do
-    Rvm2::Ui::Output::Log.new(@tempfile.path)
+    Rvm2::Ui::Output::Log.new(
+      Pluginator.find("rvm2", extends: %i{first_class}),
+      @tempfile.path
+    )
   end
 
   it "adds messages" do

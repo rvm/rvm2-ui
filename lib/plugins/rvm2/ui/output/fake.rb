@@ -28,7 +28,8 @@ module Rvm2
         end
 
         attr_reader :root, :current
-        def initialize
+        def initialize(rvm2_plugins)
+          @rvm2_plugins = rvm2_plugins
           @root = Element.new(nil, :group, nil)
           @current = @root
         end

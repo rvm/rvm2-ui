@@ -10,7 +10,7 @@ module Rvm2
       end
 
       def add(handler, *args)
-        @handlers << @rvm2_plugins.first_class!('ui/output', handler).new(*args)
+        @handlers << @rvm2_plugins.first_class!('ui/output', handler).new(@rvm2_plugins, *args)
       end
 
       def remove

@@ -38,7 +38,7 @@ module Rvm2
             rows, columns = super
             [rows, columns - levels*2]
           rescue
-            [0,0]
+            nil
           end
         end
 
@@ -48,7 +48,8 @@ module Rvm2
           @names.size
         end
 
-        def initialize(stdout = $stdout, stderr = $stderr)
+        def initialize(rvm2_plugins, stdout = $stdout, stderr = $stderr)
+          @rvm2_plugins = rvm2_plugins
           @stdout = stdout.extend(ConsoleIO)
           @stdout.console_parent = self
           @stderr = stderr.extend(ConsoleIO)
