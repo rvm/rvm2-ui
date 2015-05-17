@@ -13,10 +13,10 @@ Gem::Specification.new do |s|
   s.license = "Apache 2.0"
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.required_ruby_version = ">= 2.0.0"
-  s.add_dependency('pluginator')
+  s.required_ruby_version = ">= 1.9.3"
+  s.add_dependency("pluginator", "~> 0")
   %w{rake minitest simplecov coveralls guard guard-minitest}.each do |name|
-    s.add_development_dependency(name)
+    s.add_development_dependency(name, "~> 0")
   end
   # s.add_development_dependency("smf-gem")
 end

@@ -13,6 +13,7 @@ end
 
 Coveralls.noisy = true unless ENV['CI']
 
+gem "minitest"
 require 'minitest/autorun'
 require 'minitest/unit'
 
